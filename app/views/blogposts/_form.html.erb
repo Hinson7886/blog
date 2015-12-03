@@ -1,0 +1,31 @@
+<%= form_for(@blogpost) do |f| %>
+  <% if @blogpost.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blogpost.errors.count, "error") %> prohibited this blogpost from being saved:</h2>
+
+      <ul>
+      <% @blogpost.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form_group">
+    
+    <%= f.text_field :title, class: "form-control", placeholder: "post title" %>
+  </div>
+  <div class="form-group">
+    
+    <div class= "form-group cant-see-me"> 
+      <%= f.number_field :user_id, value: current_user.id %>
+    </div>
+  </div>
+  <div class="form-group">
+    <br>
+    <%= f.text_area :blog_entry, class: "form-control", placeholder: "Speak Your Mind!", :rows => 20 %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

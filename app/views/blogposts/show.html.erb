@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<%= @blogpost.title %>
+	</div>
+		<div class="panel-body">
+			<p>by <%= link_to @blogpost.user.username, user_posts_path(id: @blogpost.user.id) %></p>
+			posted at: <%= @blogpost.created_at.strftime('%m/%d/%Y at %I:%M%p') %>
+			<p><%= @blogpost.blog_entry %></p>
+		</div>
+</div>
+
+<div class="panel panel-success">
+		<div class="panel-heading">
+			Make a comment
+		</div>
+			<div class ="panel-body">
+				<%= render 'comments/form' %>
+
+			</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-header">
+		<h4>Comments</h4>
+	</div>
+	<% @blogpost.comments.each do |comment| %>
+	<div class="panel-body">
+		posted at: <%= @blogpost.created_at.strftime('%m/%d/%Y at %H:%M%S') %>
+		<p><strong><%= link_to comment.user.username, user_posts_path(id: comment.user.id) %><strong></p>
+
+		<p><%= comment.comment_entry %></p>
+	</div>
+<% end%>
+
+
+</div>
+
+
+
+<% if current_user.id == @blogpost.user.id %>
+<%= link_to 'Edit', edit_blogpost_path(@blogpost) %> |
+<% end %>
+<%= link_to 'Back', blogposts_path %>
